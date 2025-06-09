@@ -1,0 +1,20 @@
+syntax = "proto3";
+package requestresult;
+
+option csharp_namespace = "GrpcProductService.Protos";
+
+message RequestResult {
+  oneof result {
+    Success success = 1;
+    Failure failure = 2;
+  }
+}
+
+message Success {
+  string message = 1;
+  int64 id = 2;
+}
+
+message Failure {
+  string message = 1;
+}

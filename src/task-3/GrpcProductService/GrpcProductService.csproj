@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Protobuf Protoroot="Protos" Include="Protos\requestresult.proto" />
+        <Protobuf Protoroot="Protos" Include="Protos\orderhistoryitemkind.proto" />
+        <Protobuf Protoroot="Protos" Include="Protos\orderhistorypayload.proto" />
+        <Protobuf Protoroot="Protos" Include="Protos\product.proto" GrpcServices="Both" />
+        <Protobuf Protoroot="Protos" Include="Protos\order.proto" GrpcServices="Both" />
+        <Protobuf Protoroot="Protos" Include="Protos\orders.proto" GrpcServices="Both" />
+        <Protobuf Protoroot="Protos" Include="Protos\money.proto" Exclude="protos\money.proto" />
+        <Protobuf Protoroot="Protos" Include="Protos\order_creation.proto" />
+        <Protobuf Protoroot="Protos" Include="Protos\order_processing.proto" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <PackageReference Include="Google.Api.CommonProtos" />
+        <PackageReference Include="Grpc.AspNetCore"/>
+        <PackageReference Include="Grpc.AspNetCore.Server" />
+        <PackageReference Include="Grpc.AspNetCore.Server.Reflection" />
+        <PackageReference Include="Grpc.Tools">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\task-1\ProductService\ProductService.csproj" />
+        <ProjectReference Include="..\..\task-2\OrderWebApplication\OrderWebApplication.csproj" />
+        <ProjectReference Include="..\Kafka\Kafka.csproj" />
+    </ItemGroup>
+
+</Project>

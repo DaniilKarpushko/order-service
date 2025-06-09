@@ -1,0 +1,12 @@
+syntax = "proto3";
+package orderhistoryitemkind;
+
+option csharp_namespace = "GrpcProductService.Protos";
+
+enum OrderHistoryItemKind {
+  ORDER_HISTORY_ITEM_KIND_UNSPECIFIED = 0;
+  ORDER_HISTORY_ITEM_KIND_CREATED = 1;
+  ORDER_HISTORY_ITEM_KIND_ITEM_ADDED = 2;
+  ORDER_HISTORY_ITEM_KIND_ITEM_REMOVED = 3;
+  ORDER_HISTORY_ITEM_KIND_STATE_CHANGED = 4;
+}

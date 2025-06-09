@@ -1,0 +1,67 @@
+syntax = "proto3";
+package order;
+
+option csharp_namespace = "GrpcProductService.Protos";
+
+import "google/protobuf/timestamp.proto";
+import "requestresult.proto";
+import "orderhistoryitemkind.proto";
+import "orderhistorypayload.proto";
+
+service MyOrderService {
+  rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
+  rpc AddProduct (AddProductRequest) returns (AddProductResponse);
+  rpc RemoveProduct (RemoveProductRequest) returns (RemoveProductResponse);
+  rpc SetOrderStateProcessing (OrderStateRequest) returns (OrderStateResponse);
+  rpc SetOrderStateCompleted (OrderStateRequest) returns (OrderStateResponse);
+  rpc SetOrderStateCanceled (OrderStateRequest) returns (OrderStateResponse);
+  rpc GetOrderHistory (OrderHistoryRequest) returns (stream OrderHistoryResponse);
+}
+
+message CreateOrderRequest {
+  string createdBy = 1;
+}
+
+message CreateOrderResponse {
+  requestresult.RequestResult result = 1;
+}
+
+message AddProductRequest {
+  int64 order_id = 1;
+  int64 product_id = 2;
+  int32 quantity = 3;
+}
+
+message AddProductResponse {
+  requestresult.RequestResult result = 1;
+}
+
+message RemoveProductRequest {
+  int64 order_id = 1;
+  int64 product_id = 2;
+}
+
+message RemoveProductResponse {
+  requestresult.RequestResult result = 1;
+}
+
+message OrderStateRequest {
+  int64 order_id = 1;
+}
+
+message OrderStateResponse {
+  requestresult.RequestResult result = 1;
+}
+
+message OrderHistoryRequest {
+  int64 order_id = 1;
+  int32 limit = 2;
+}
+
+message OrderHistoryResponse {
+  int64 order_id = 1;
+  google.protobuf.Timestamp created_at = 2;
+  orderhistoryitemkind.OrderHistoryItemKind kind = 3;
+  orderhistorypayload.HistoryPayload payload = 4;
+}
+

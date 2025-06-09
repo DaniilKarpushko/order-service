@@ -1,0 +1,35 @@
+syntax = "proto3";
+package orderhistorypayload;
+
+option csharp_namespace = "GrpcProductService.Protos";
+import "google/protobuf/timestamp.proto";
+
+message HistoryPayload {
+  oneof payload {
+    CreateHistoryPayload create = 1;
+    RemovedHistoryPayload removed = 2;
+    AddedHistoryPayload added = 3;
+    ChangedHistoryPayload changed = 4;
+  }
+}
+
+message CreateHistoryPayload {
+  google.protobuf.Timestamp created_at = 1;
+  string created_by = 2;
+}
+
+message RemovedHistoryPayload {
+  google.protobuf.Timestamp removed_at = 1;
+  int64 product_id = 2;
+}
+
+message AddedHistoryPayload {
+  google.protobuf.Timestamp added_at = 1;
+  int64 product_id = 2;
+  int32 quantity = 3;
+}
+
+message ChangedHistoryPayload {
+  google.protobuf.Timestamp changed_at = 1;
+  int64 order_id = 2;
+}

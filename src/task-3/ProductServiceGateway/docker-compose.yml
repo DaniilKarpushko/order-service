@@ -1,0 +1,39 @@
+services:
+  postgres-1:
+    image: postgres:latest
+    container_name: lab-2-tools-postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "6432:5432"
+    restart: unless-stopped
+    networks:
+      - configuration-service-network
+  
+  postgres_product:
+    image: postgres:latest
+    container_name: products
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "5433:5432"
+    restart: unless-stopped
+  
+  configuration-service:
+    image: ghcr.io/is-csms-y26/lab-2-tools:master
+    platform: linux/amd64
+    container_name: configuration-service
+    networks:
+      - configuration-service-network
+    ports:
+      - '8082:8082'
+    environment:
+      Persistence__Postgres__Host: lab-2-tools-postgres
+      
+networks:
+  configuration-service-network:
+    driver: bridge
